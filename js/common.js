@@ -64,14 +64,16 @@ document.onclick = function (event) { //---------------------------------кли�
 }
 
 function createBoxBoard() {
-  let title = document.querySelector('.input-title-board').value;
-  let box = document.createElement('div');
-  box.classList.add('box','box_board');
-  box.innerHTML = `<h3 class='box_board__title'>${title}</h3>
-                    <div class="close-button">Delete</div>`;
-  container.append(box);
-  store[title] = {};
-  localStorage.setItem('store', JSON.stringify(store));
+  if (checkValueInput(document.querySelector('.input-title-board'))) {
+        let title = document.querySelector('.input-title-board').value;
+        let box = document.createElement('div');
+        box.classList.add('box','box_board');
+        box.innerHTML = `<h3 class='box_board__title'>${title}</h3>
+                          <div class="close-button">Delete</div>`;
+        container.append(box);
+        store[title] = {};
+        localStorage.setItem('store', JSON.stringify(store));
+  }
 }
 
 function removeBoard(nameBoard) {
@@ -130,10 +132,22 @@ function createlistAddOpen() {
 }
 
 function closeAddList() {
-  let listAdd =document.querySelector('');
+  let listAdd = document.querySelector('.main__add-list');
+  listAdd.classList.remove('main__add-list_open');
+  listAdd.innerHTML = `<h2 class="main__add-list__title">Add a list...</h2>`;
+}
+
+function checkValueInput(inputClass) {
+  let value = inputClass.value;
+  if (value == "") {
+    return false;
+  }else{
+    return true;
+  }
 }
 
 /*
 main идёт после хедера
 в main вставить <div class="main__content"></div> и <div class="main__add-list">${listTitle}</div>
+git commit -m'check input and and button create list'
 */

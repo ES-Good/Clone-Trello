@@ -40,6 +40,14 @@ boxAddBoard.onclick = function () {
   }
 }
 
+document.onchange = () => { //-------------------------------------------события при потери фокуса inputs
+  if (event.target.classList.contains('input-title-board')) {
+    createBoxBoard();
+  }else if (event.target.classList.contains('input-name-list')) {
+      createList();
+  }
+}
+
 document.onclick = function (event) { //---------------------------------клики
   if (event.target.id == 'cancel-button') {
     boxAddBoardContent.removeBoxContant();
@@ -65,14 +73,16 @@ document.onclick = function (event) { //---------------------------------кли�
 
 function createBoxBoard() {
   if (checkValueInput(document.querySelector('.input-title-board'))) {
-        let title = document.querySelector('.input-title-board').value;
+        let title = document.querySelector('.input-title-board');
+        let titleValue = title.value;
         let box = document.createElement('div');
         box.classList.add('box','box_board');
-        box.innerHTML = `<h3 class='box_board__title'>${title}</h3>
+        box.innerHTML = `<h3 class='box_board__title'>${titleValue}</h3>
                           <div class="close-button">Delete</div>`;
         container.append(box);
-        store[title] = {};
+        store[titleValue] = {};
         localStorage.setItem('store', JSON.stringify(store));
+        title.value = '';
   }
 }
 
@@ -146,8 +156,17 @@ function checkValueInput(inputClass) {
   }
 }
 
-/*
-main идёт после хедера
-в main вставить <div class="main__content"></div> и <div class="main__add-list">${listTitle}</div>
-git commit -m'check input and and button create list'
-*/
+function  createList() {
+  let main = document.querySelector('.main');
+  if (main.firstChild.classList.contains('main__container-list')) {
+    console.log('yes');
+  }else{
+    main.prepend(creteContainerList());
+  }
+}
+
+function creteContainerList() {
+  let containerList = document.createElement('div');
+  containerList.classList.add('main__container-list');
+  return containerList;
+}

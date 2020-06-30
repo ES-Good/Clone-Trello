@@ -226,3 +226,10 @@ body{
 .main__add-list_open{
   cursor: auto;
 }
+
+.input-name-list:focus{
+  width: 200px;
+  height: 50px;
+  background: #ebedee;
+  font-size: 28px;
+}

@@ -45,6 +45,7 @@ document.onchange = () => { //-------------------------------------------соб�
     createBoxBoard();
   }else if (event.target.classList.contains('input-name-list')) {
       createList();
+      closeAddList();
   }
 }
 
@@ -66,6 +67,7 @@ document.onclick = function (event) { //---------------------------------кли�
     }
   }else if (event.target.classList.contains('main__add-list__title')) {
     createlistAddOpen();
+    document.querySelector('.input-name-list').focus();
   }else if (event.target.classList.contains('close-block') || event.target.classList.contains('close-block__line')) {
     closeAddList();
   }
@@ -158,10 +160,12 @@ function checkValueInput(inputClass) {
 
 function  createList() {
   let main = document.querySelector('.main');
+  let titleList = document.querySelector('.input-name-list').value;
   if (main.firstChild.classList.contains('main__container-list')) {
-    console.log('yes');
+    document.querySelector('.main__container-list').append(createListContent(titleList));
   }else{
     main.prepend(creteContainerList());
+    document.querySelector('.main__container-list').append(createListContent(titleList));
   }
 }
 
@@ -169,4 +173,14 @@ function creteContainerList() {
   let containerList = document.createElement('div');
   containerList.classList.add('main__container-list');
   return containerList;
+}
+
+function createListContent(titleList) {
+  let htmlContentList = `   <h3 class="main__container-list__list__title">${titleList}</h3>
+                            <input type="text" class="main__container-list__list__input">`
+  let list = document.createElement('div');
+  list.classList.add('main__container-list__list');
+
+  list.innerHTML = htmlContentList
+  return list;
 }

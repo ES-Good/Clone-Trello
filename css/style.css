@@ -233,3 +233,17 @@ body{
   background: #ebedee;
   font-size: 28px;
 }
+
+.main__container-list__list{
+  padding: 10px;
+  background: #8bc28f;
+  box-shadow: 3px 3px 0px #000;
+  margin-right: 10px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main__container-list__list__title{
+  align-items: center;
+}

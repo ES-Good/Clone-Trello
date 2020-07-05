@@ -40,7 +40,7 @@ boxAddBoard.onclick = function () {
   }
 }
 
-document.onchange = () => { //-------------------------------------------события при потери фокуса inputs
+document.onchange = () => { //-------------------------------------------события при потери фокуса input
   if (event.target.classList.contains('input-title-board')) {
     createBoxBoard();
   }else if (event.target.classList.contains('input-name-list')) {
@@ -123,7 +123,6 @@ listAdd.classList.add('main__add-list');
 listAdd.append(createlistAddClose());
 
 main.append(listAdd);
-
 }
 
 function createlistAddClose() {
@@ -161,6 +160,7 @@ function checkValueInput(inputClass) {
 function  createList() {
   let main = document.querySelector('.main');
   let titleList = document.querySelector('.input-name-list').value;
+  saveLocalStoreStorage(titleList);
   if (main.firstChild.classList.contains('main__container-list')) {
     document.querySelector('.main__container-list').append(createListContent(titleList));
   }else{
@@ -177,10 +177,18 @@ function creteContainerList() {
 
 function createListContent(titleList) {
   let htmlContentList = `   <h3 class="main__container-list__list__title">${titleList}</h3>
-                            <input type="text" class="main__container-list__list__input">`
+                            <input type="text" class="main__container-list__input">`
   let list = document.createElement('div');
   list.classList.add('main__container-list__list');
 
   list.innerHTML = htmlContentList
   return list;
+}
+
+function saveLocalStoreStorage(kayName) {
+  let nameObject = document.querySelector('.header-board__title').innerText;
+  let a = JSON.parse(localStorage.getItem('store'));
+  a[nameObject][kayName] = [];
+  localStorage.setItem('store',JSON.stringify(a))
+  console.log(a);
 }
